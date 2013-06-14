@@ -1,0 +1,71 @@
+class User {
+
+static final int STATUS_PENDING  = 1
+static final int STATUS_APPROVED = 2
+static final int STATUS_REJECTED = 3
+	
+String name
+String email
+String address
+String password 
+Integer age
+Integer year
+int status
+boolean married=true
+String remarks
+String status1
+Date dateCreated
+Status enumStatus
+    static constraints = {
+		name(nullable:false,size:0..20)
+
+		email(email:true,size:0..50)
+
+		address(nullable:false,size:0..200)
+
+		password(password:true,nullable:false,size:0..30)
+
+		age(min:18,max:30)
+
+		year(range:2000..2013,nullable:false)
+
+		remarks(widget: 'textarea',size:0..1000,nullable:true)
+
+		status(inList: [STATUS_PENDING, STATUS_APPROVED, STATUS_REJECTED])
+
+		status1(inList: ["Active","Inactive","Pending"])
+
+		married(nullable:false)
+
+		enumStatus(nullable:false)
+
+		dateCreated(nullable:false)
+    }
+}
+
+
+Status.groovy
+----------------------
+package org.sigma
+import grails.converters.JSON
+
+public enum Status {
+
+	ACTIVE("Active"), IN_ACTIVE("Inactive"), SUSPENDED("Suspended")
+	
+	String statusName
+	
+	Status(String statusName) {
+		this.statusName = statusName
+	}
+
+    String toString()
+	{
+		return statusName;
+	}
+	String getKey() { name() }
+  
+	static void list() {
+		[ACTIVE, IN_ACTIVE, SUSPENDED]
+	}		
+}
